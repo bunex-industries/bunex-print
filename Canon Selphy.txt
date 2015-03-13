@@ -1,0 +1,19 @@
+Canon CP selphy 910
+
+
+Get exhaustive printer options :
+
+lpoptions -p <printer_id> -l
+
+Get printer's list
+
+lpstat -l
+
+
+*Postcard(4x6in)_Type2.FullBleed
+Postcard(4x6in)_Type2
+CP_L_size_Type2.FullBleed
+CP_L_size_Type2
+CP_C_size_Type2.FullBleed
+CP_C_size_Type2
+Custom.WIDTHxHEIGHT

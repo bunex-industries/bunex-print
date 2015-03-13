@@ -1,0 +1,231 @@
+kernel vec4 redChannel(sampler image)
+{
+	vec4 src = sample(image, samplerCoord(image));
+	return src.rrra;
+}
+
+
+kernel vec4 green(sampler image)
+{
+	vec4 src = sample(image, samplerCoord(image));
+	return src.ggga;
+}
+
+
+kernel vec4 blue(sampler image)
+{
+	vec4 src = sample(image, samplerCoord(image));
+	return src.bbba;
+}
+
+
+
+kernel vec4 rgb(sampler red, sampler green, sampler blue)
+{
+	vec4 srcR = sample(red, samplerCoord(red));
+	vec4 srcG = sample(green, samplerCoord(green));
+	vec4 srcB = sample(blue, samplerCoord(blue));
+    
+	return vec4(srcR.r, srcG.g, srcB.b,1.0);
+}
+
+
+
+vec4 rgb2hsl(vec4 color)
+{
+	float MAX = max(color.r, max(color.g, color.b));
+	float MIN = min(color.r, min(color.g, color.b));
+
+	MAX = max(MIN + 1e-6, MAX);
+
+	float l = (MIN + MAX) / 2.0;
+	float s = (l < 0.5 ? (MAX - MIN) / (MIN + MAX) : (MAX - MIN) / (2.0 - MAX - MIN));
+	float h = (MAX == color.r ? (color.g - color.b) / (MAX - MIN) : (MAX == color.g ? 2.0 + (color.b - color.r) / (MAX - MIN) : 4.0 + (color.r - color.g) / (MAX - MIN)));
+	h = h / 6.0;
+	h = (h < 0.0 ? 1.0+h : (h > 1.0 ? h-1.0 : h));
+
+	return vec4(h, s, l, 1.0);
+}
+
+
+kernel vec4 convert2hsl(sampler image)
+{
+	vec4 imageIn =  sample(image, samplerCoord(image));
+	imageIn = rgb2hsl(imageIn);
+	
+	return imageIn;
+}
+
+
+
+
+kernel vec4 hue(sampler image)
+{
+	vec4 img =  sample(image, samplerCoord(image));
+	return img.rrra;
+}
+
+
+kernel vec4 saturation(sampler image)
+{
+	vec4 img =  sample(image, samplerCoord(image));
+	return img.ggga;
+}
+
+
+kernel vec4 luminosity(sampler image)
+{
+	vec4 img =  sample(image, samplerCoord(image));
+	return img.bbba;
+}
+
+
+kernel vec4 hsl(sampler hueImg, sampler satImg, sampler lumImg)
+{
+	vec4 hue =  sample(hueImg, samplerCoord(hueImg));
+	vec4 sat =  sample(satImg, samplerCoord(satImg));
+	vec4 lum =  sample(lumImg, samplerCoord(lumImg));	
+	return vec4(hue.r, sat.r, lum.r , 1.0);
+}
+
+
+kernel vec4 bwkernel(sampler image)
+{
+	vec4 img = sample(image, samplerCoord(image));
+    img = rgb2hsl(img);
+	return img.bbba;
+}
+
+
+vec4 hsl2rgb(vec4 img)
+{
+	float C = (1.0 - abs(2.0*img.b - 1.0)) * img.g;
+	
+	float Hprime = 6.0*img.r;
+	
+	float X = C * (1.0-abs(mod(Hprime , 2.0) - 1.0));
+	
+	vec4 res;
+	res = abs(Hprime-0.5000) <= 0.5 ? vec4(C,X,0 ,1.0) : vec4(0,0,0,1);
+	res = abs(Hprime-1.5000) <= 0.5 ? vec4(X,C,0 ,1.0) : res;
+	res = abs(Hprime-2.5000) <= 0.5 ? vec4(0,C,X ,1.0) : res;
+	res = abs(Hprime-3.5000) <= 0.5 ? vec4(0,X,C ,1.0) : res;
+	res = abs(Hprime-4.5000) <= 0.5 ? vec4(X,0,C ,1.0) : res;
+	res = abs(Hprime-5.5000) <= 0.5 ? vec4(C,0,X ,1.0) : res;
+	
+	float m = img.b - 0.5000*C;
+	
+	return vec4(res.r +  m, res.g + m, res.b + m, 1.0);
+}
+
+
+
+
+kernel vec4 convert2rgb(sampler image)
+{
+	vec4 imageIn =  sample(image, samplerCoord(image));
+	imageIn = hsl2rgb(imageIn);
+	
+	return imageIn;
+}
+
+
+kernel vec4 hueOffset(sampler image, float gain, float hue, float Q)
+{
+
+	vec4 img = sample(image, samplerCoord(image));
+	
+	float h = (img.g + img.g + img.b)/3.0;
+	
+	float hh = h + 
+	(gain * exp(-(10.0 + Q)*(h-hue)*(h-hue)) + 
+	gain * exp(-(10.0 + Q)*(h-hue+1.0)*(h-hue+1.0)) + 
+	gain * exp(-(10.0 + Q)*(h-hue-1.0)*(h-hue-1.0)));
+	
+	hh = (hh>1.0 ? hh - floor(hh) : hh);
+	hh = (hh<0.0 ? hh + floor(abs(hh)) + 1.0 : hh);
+	
+	img.r = hh;
+	img.g = hh;
+	img.b = hh;
+	
+	return img;
+}
+
+kernel vec4 satOffset(sampler image, sampler satImage, float gain, float hue, float Q)
+{
+
+	vec4 img = sample(image, samplerCoord(image));
+	vec4 satImg = sample(satImage, samplerCoord(satImage));
+	
+	float h = (img.r + img.g + img.b)/3.0;
+	float s = (satImg.r + satImg.g + satImg.b)/3.0;
+	float hh = s * 
+	(1.000 + gain * exp(-(10.0 + Q)*(h-hue)*(h-hue)) + 
+	gain * exp(-(10.0 + Q)*(h-hue+1.0)*(h-hue+1.0)) + 
+	gain * exp(-(10.0 + Q)*(h-hue-1.0)*(h-hue-1.0)));
+	
+	hh = min(1.0, max(0.0,hh));
+	
+	
+	img.r = hh;
+	img.g = hh;
+	img.b = hh;
+	
+	return img.rgba;
+}
+
+kernel vec4 lumOffset(sampler image, sampler satImage, sampler lumImage, float gain, float hue, float Q)
+{
+
+	vec4 img = sample(image, samplerCoord(image));
+	vec4 lumImg = sample(lumImage, samplerCoord(lumImage));
+	vec4 satImg = sample(satImage, samplerCoord(satImage));
+	
+	float h = img.r;
+    float s = satImg.r;
+    float l = lumImg.r;
+	float hh = l * 
+	(1.0 + s*(gain * exp(-(10.0 + Q)*(h-hue)*(h-hue)) + 
+	gain * exp(-(10.0 + Q)*(h-hue+1.0)*(h-hue+1.0)) + 
+	gain * exp(-(10.0 + Q)*(h-hue-1.0)*(h-hue-1.0))));
+	
+	hh = min(1.0, max(0.0,hh));
+	
+	
+	img.r = hh;
+	img.g = hh;
+	img.b = hh;
+	
+	return img.rgba;
+}
+
+kernel vec4 curvekernel(sampler image, float valx0, float valy0, float valx1, float valy1, float valx2, float valy2, float valx3, float valy3, float valx4, float valy4, float valx5, float valy5, float valx6, float valy6, float valx7, float valy7, float valx8, float valy8, float valx9, float valy9, float valx10, float valy10, float valx11, float valy11, float valx12, float valy12, float valx13, float valy13, float valx14, float valy14, float valx15, float valy15, float valx16, float valy16, float valx17, float valy17, float valx18, float valy18, float valx19, float valy19, float valx20, float valy20)
+{
+    vec4 img = sample(image, samplerCoord(image));
+    float after = img.r;
+    
+    after = img.r >= valx0 ? (img.r < valx1 ? (valy0 + (img.r - valx0) * (valy1 - valy0)/(valx1 - valx0)): after ): after;
+    after = img.r >= valx1 ? (img.r < valx2 ? (valy1 + (img.r - valx1) * (valy2 - valy1)/(valx2 - valx1)): after ): after;
+    after = img.r >= valx2 ? (img.r < valx3 ? (valy2 + (img.r - valx2) * (valy3 - valy2)/(valx3 - valx2)): after ): after;
+    after = img.r >= valx3 ? (img.r < valx4 ? (valy3 + (img.r - valx3) * (valy4 - valy3)/(valx4 - valx3)): after ): after;
+    after = img.r >= valx4 ? (img.r < valx5 ? (valy4 + (img.r - valx4) * (valy5 - valy4)/(valx5 - valx4)): after ): after;
+    after = img.r >= valx5 ? (img.r < valx6 ? (valy5 + (img.r - valx5) * (valy6 - valy5)/(valx6 - valx5)): after ): after;
+    after = img.r >= valx6 ? (img.r < valx7 ? (valy6 + (img.r - valx6) * (valy7 - valy6)/(valx7 - valx6)): after ): after;
+    after = img.r >= valx7 ? (img.r < valx8 ? (valy7 + (img.r - valx7) * (valy8 - valy7)/(valx8 - valx7)): after ): after;
+    after = img.r >= valx8 ? (img.r < valx9 ? (valy8 + (img.r - valx8) * (valy9 - valy8)/(valx9 - valx8)): after ): after;
+    after = img.r >= valx9 ? (img.r < valx10 ? (valy9 + (img.r - valx9) * (valy10 - valy9)/(valx10 - valx9)): after ): after;
+    after = img.r >= valx10 ? (img.r < valx11 ? (valy10 + (img.r - valx10) * (valy11 - valy10)/(valx11 - valx10)): after ): after;
+    after = img.r >= valx11 ? (img.r < valx12 ? (valy11 + (img.r - valx11) * (valy12 - valy11)/(valx12 - valx11)): after ): after;
+    after = img.r >= valx12 ? (img.r < valx13 ? (valy12 + (img.r - valx12) * (valy13 - valy12)/(valx13 - valx12)): after ): after;
+    after = img.r >= valx13 ? (img.r < valx14 ? (valy13 + (img.r - valx13) * (valy14 - valy13)/(valx14 - valx13)): after ): after;
+    after = img.r >= valx14 ? (img.r < valx15 ? (valy14 + (img.r - valx14) * (valy15 - valy14)/(valx15 - valx14)): after ): after;
+    after = img.r >= valx15 ? (img.r < valx16 ? (valy15 + (img.r - valx15) * (valy16 - valy15)/(valx16 - valx15)): after ): after;
+    after = img.r >= valx16 ? (img.r < valx17 ? (valy16 + (img.r - valx16) * (valy17 - valy16)/(valx17 - valx16)): after ): after;
+    after = img.r >= valx17 ? (img.r < valx18 ? (valy17 + (img.r - valx17) * (valy18 - valy17)/(valx18 - valx17)): after ): after;
+    after = img.r >= valx18 ? (img.r < valx19 ? (valy18 + (img.r - valx18) * (valy19 - valy18)/(valx19 - valx18)): after ): after;
+    after = img.r >= valx19 ? (valy19 + (img.r - valx19) * (valy20 - valy19)/(valx20 - valx19)): after;
+    
+    return vec4(after, after, after, 1.0);
+}
+
