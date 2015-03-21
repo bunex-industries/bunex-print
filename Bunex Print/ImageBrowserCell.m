@@ -237,12 +237,14 @@
 	return container;
 }
 
+
 - (NSRect) titleFrame
 {
 	NSRect titleFrame = [super titleFrame];
 
 	return titleFrame;
 }
+
 
 - (NSRect) selectionFrame
 {

@@ -189,8 +189,9 @@
         currentString = [currentString stringByReplacingOccurrencesOfString:@"¨o" withString:@"ö"];
         currentString = [currentString stringByReplacingOccurrencesOfString:@"¨u" withString:@"ü"];
         [txt setStringValue:currentString];
-        [txt setBackgroundColor:[self checkEmail:currentString] ? [NSColor colorWithRed:0.2 green:1 blue:0 alpha:0.5]: [NSColor colorWithWhite:220.0/255.0 alpha:1]];
     }
+    [txt setBackgroundColor:[self checkEmail:currentString] ? [NSColor colorWithRed:0.2 green:1 blue:0 alpha:0.5]: [NSColor colorWithWhite:220.0/255.0 alpha:1]];
+
     [self setNeedsDisplay: YES];
 }
 
@@ -202,7 +203,7 @@
     
     BOOL isValid = NO;
     NSError * error;
-    NSString * regexString = @"^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\\.([a-zA-Z]{2,4}|com|be|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$";
+    NSString * regexString = @"^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\\.([a-zA-Z]{2,4}|fr|eu|com|be|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];

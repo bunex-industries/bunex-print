@@ -234,7 +234,6 @@
     /////// WORKING FOLDER ///////
     else if(sender == workingFolderField)
     {
-        
         [queue removePathFromQueue:todoFolder];
         
         [[NSUserDefaults standardUserDefaults] setObject:workingFolderField.stringValue forKey:@"workingFolderField"];
