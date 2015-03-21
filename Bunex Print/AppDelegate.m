@@ -159,6 +159,15 @@
     
     workingFolderField.stringValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"workingFolderField"];
     
+    
+    archiveOldButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"archiveOldButton"];
+    archivePrintedButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"archivePrintedButton"];
+    archiveGifButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"archiveGifButton"];
+    archiveExtensionsButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"archiveExtensionsButton"];
+    archiveExtensionsField.stringValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"archiveExtensionsField"];
+    useWebCamButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"useWebCamButton"];
+    takePhotoButton.hidden = !useWebCamButton.state;
+    
     shouldLayoutButton.state = [[[NSUserDefaults standardUserDefaults] objectForKey:@"shouldLayoutButton"] boolValue];
     [orientMatrix selectCellAtRow:[[[NSUserDefaults standardUserDefaults] objectForKey:@"orientMatrix"] integerValue] column:0];
     docWidthField.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"docWidthField"] integerValue];
@@ -216,6 +225,15 @@
     emailField.stringValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"emailField"];
     subjectField.stringValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"subjectField"];
     messageField.stringValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"messageField"];
+    
+    shouldCreateGifButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldCreateGifButton"];
+    gifButton.hidden = !shouldCreateGifButton.state;
+    [gifFPSButton selectItemWithTitle:[[NSUserDefaults standardUserDefaults] stringForKey:@"gifFPSButton"]];
+    gifWidthField.integerValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"gifWidthField"];
+    gifHeightField.integerValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"gifHeightField"];
+    gifMinCountField.integerValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"gifMinCountField"];
+    gifMaxCountField.integerValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"gifMaxCountField"];
+    
 }
 
 -(IBAction)prefChange:(id)sender
@@ -230,8 +248,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[autoFullScreenButton state]] forKey:@"autoFullScreenButton"];
     }
     
-#pragma mark working folder
-    /////// WORKING FOLDER ///////
+#pragma mark working folder & archives
+    /////// WORKING FOLDER & divers ///////
     else if(sender == workingFolderField)
     {
         [queue removePathFromQueue:todoFolder];
@@ -256,6 +274,32 @@
         [self addImagesWithPaths:[self dateOrderedFiles:[self pathsOfFilesInDirectory:todoFolder]]];
         [imageBrowserView reloadData];
     }
+    else if (sender == archiveOldButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:archiveOldButton.state forKey:@"archiveOldButton"];
+    }
+    else if (sender == archivePrintedButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:archivePrintedButton.state forKey:@"archivePrintedButton"];
+    }
+    else if (sender == archiveGifButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:archiveGifButton.state forKey:@"archiveGifButton"];
+    }
+    else if (sender == archiveExtensionsButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:archiveExtensionsButton.state forKey:@"archiveExtensionsButton"];
+    }
+    else if (sender == archiveExtensionsField)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:archiveExtensionsField.stringValue forKey:@"archiveExtensionsField"];
+    }
+    else if (sender == useWebCamButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:useWebCamButton.state forKey:@"useWebCamButton"];
+        takePhotoButton.hidden = !useWebCamButton.state;
+    }
+    
     
 #pragma mark format
     /////// FORMAT ///////
@@ -535,6 +579,36 @@
     {
         [[NSUserDefaults standardUserDefaults] setObject:messageField.stringValue forKey:@"messageField"];
     }
+    
+    
+#pragma mark gif
+    /////// GIF ///////////
+    else if(sender == shouldCreateGifButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:shouldCreateGifButton.state forKey:@"shouldCreateGifButton"];
+        gifButton.hidden = !shouldCreateGifButton.state;
+    }
+    else if(sender == gifFPSButton)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:[[gifFPSButton titleOfSelectedItem] integerValue] forKey:@"gifFPSButton"];
+    }
+    else if(sender == gifMinCountField)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:gifMinCountField.integerValue forKey:@"gifMinCountField"];
+    }
+    else if(sender == gifMaxCountField)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:gifMaxCountField.integerValue forKey:@"gifMaxCountField"];
+    }
+    else if(sender == gifHeightField)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:gifHeightField.integerValue forKey:@"gifHeightField"];
+    }
+    else if(sender == gifWidthField)
+    {
+        [[NSUserDefaults standardUserDefaults] setInteger:gifWidthField.integerValue forKey:@"gifWidthField"];
+    }
+    
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -840,7 +914,7 @@
 
 -(IBAction)next:(NSButton*)btn
 {
-
+/*
     [imageBrowserView setHidden:YES];
     keyboard = [[BUNKeyboard alloc] initWithFrame:NSMakeRect([self.window.contentView frame].size.width/2 - 880/2,
                                                              [self.window.contentView frame].size.height/2 - 320/2,
@@ -850,7 +924,7 @@
     
     [keyboard configure];
     [keyboard setNeedsDisplay:YES];
-
+*/
     
 
     if (files.count)
@@ -928,10 +1002,12 @@
             [arr addObject:[item imageUID]];
         }
     }
-    if (arr.count>0)
+    if (arr.count>=[[NSUserDefaults standardUserDefaults] integerForKey:@"gifMinCountField"] &&
+        arr.count<=[[NSUserDefaults standardUserDefaults] integerForKey:@"gifMaxCountField"])
     {
         NSString* gifPath = [todoFolder stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.gif", [NSDate date]]];
-        [self makeAnimatedGIFWithImagePaths:[NSArray arrayWithArray:arr] size:NSMakeSize(600, 600) saveGifAtPath:gifPath];
+        [self makeAnimatedGIFWithImagePaths:[NSArray arrayWithArray:arr] size:NSMakeSize([[NSUserDefaults standardUserDefaults] floatForKey:@"gifWidthField"],
+                                                                                         [[NSUserDefaults standardUserDefaults] floatForKey:@"gifHeightField"]) saveGifAtPath:gifPath];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"shouldNotifyButton"])
         {
             [self performSelectorInBackground:@selector(sendEmailWithFile:) withObject:gifPath];
@@ -1331,16 +1407,14 @@
     
     NSDictionary *gifProperties = [NSDictionary dictionaryWithObject:gifPropsDict forKey:(NSString*)kCGImagePropertyGIFDictionary];
     
+    float frameDuration = 1 / [[NSUserDefaults standardUserDefaults] floatForKey:@"gifFPSButton"];
     
     for (NSString * file in jpegs)
     {
-        float frameDuration = 0.1;
-        
-        
         NSDictionary *frameProperties = [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:frameDuration] forKey:(NSString*)kCGImagePropertyGIFDelayTime]
                                                                     forKey:(NSString*)kCGImagePropertyGIFDictionary];
         
-        NSLog(@"Add image #%d to animated GIF", count);
+        NSLog(@"Add image #%d to GIF", count);
         
         NSImage * img = [[NSImage alloc] initWithContentsOfFile:file];
         if (!NSEqualSizes(size, NSZeroSize))
@@ -1363,7 +1437,7 @@
     
     
     CFRelease(destination);
-    NSLog(@"Finalize GIF done = %d", done);
+    NSLog(@"Finalize GIF... %@", done ? @"done" : @"ERROR !");
 }
 
 

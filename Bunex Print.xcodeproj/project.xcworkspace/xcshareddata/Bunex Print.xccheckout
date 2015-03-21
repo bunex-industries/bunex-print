@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B6D62DE9-9D4A-4378-B146-DC2BDCEF6E01</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bunex Print</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E07363341C2E669440BBA781EDA79CFD785CAE40</key>
+		<string>https://github.com/bunex-industries/bunex-print.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Bunex Print.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E07363341C2E669440BBA781EDA79CFD785CAE40</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bunex-industries/bunex-print.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E07363341C2E669440BBA781EDA79CFD785CAE40</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E07363341C2E669440BBA781EDA79CFD785CAE40</string>
+			<key>IDESourceControlWCCName</key>
+			<string>bunex-print</string>
+		</dict>
+	</array>
+</dict>
+</plist>

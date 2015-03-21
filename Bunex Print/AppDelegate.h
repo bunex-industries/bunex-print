@@ -40,6 +40,17 @@
     IBOutlet NSTextField *  workingFolderField;
     IBOutlet NSButton *     workingFolderChooseButton;
     
+    IBOutlet NSButton *     archiveOldButton;
+    IBOutlet NSButton *     archivePrintedButton;
+    IBOutlet NSButton *     archiveGifButton;
+    IBOutlet NSButton *     archiveExtensionsButton;
+    IBOutlet NSTextField *  archiveExtensionsField;
+    
+    IBOutlet NSButton *     useWebCamButton;
+    IBOutlet NSButton *     takePhotoButton;
+    IBOutlet NSButton *     printButton;
+    IBOutlet NSButton *     gifButton;
+    
     IBOutlet NSMatrix *     orientMatrix;
     IBOutlet NSTextField *  docWidthField;
     IBOutlet NSTextField *  docHeightField;
@@ -89,6 +100,14 @@
     IBOutlet NSTextField *  emailField;
     IBOutlet NSTextField *  subjectField;
     IBOutlet NSTextField *  messageField;
+    
+    
+    IBOutlet NSButton *     shouldCreateGifButton;
+    IBOutlet NSPopUpButton * gifFPSButton;
+    IBOutlet NSTextField *  gifWidthField;
+    IBOutlet NSTextField *  gifHeightField;
+    IBOutlet NSTextField *  gifMinCountField;
+    IBOutlet NSTextField *  gifMaxCountField;
     
 }
 
