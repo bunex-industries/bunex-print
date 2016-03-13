@@ -23,12 +23,30 @@
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
+    
     return YES;
 }
 
+
+-(IBAction)razPrefs:(NSButton*)btn
+{
+    NSAlert * alert = [[NSAlert alloc] init];
+    alert.messageText = @"Toutes les préférences vont être ramenée à leurs valeurs par défaut !";
+    alert.informativeText = @"L'application va quitter, vous devrer la redémarrer et configurer les préférences selon vos besoins";
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert addButtonWithTitle:@"Ok"];
+    NSModalResponse response = [alert runModal];
+    
+    if (response == 1001)
+    {
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+        [NSApp terminate:nil];
+    }
+}
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    //[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
     
     self.window.styleMask = NSTitledWindowMask  | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
     
@@ -505,13 +523,13 @@
     {
         [[NSUserDefaults standardUserDefaults] setObject:filter1Popup.titleOfSelectedItem forKey:@"filter1Popup"];
         NSDictionary * filter = [[filters filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(name == %@)", [[NSUserDefaults standardUserDefaults] objectForKey:@"filter1Popup"]]] firstObject];
-        if (filter !=nil)
-        {
+        //if (filter !=nil)
+        //{
             filter1Slider.minValue = [[filter objectForKey:@"minValue"] floatValue];
             filter1Slider.maxValue = [[filter objectForKey:@"maxValue"] floatValue];
             filter1Slider.floatValue = [[filter objectForKey:@"defaultValue"] floatValue];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:[[filter objectForKey:@"defaultValue"] floatValue]] forKey:@"filter1Slider"];
-        }
+        //}
     }
     else if(sender == filter1Slider)
     {
@@ -552,8 +570,6 @@
             [[NSBundle mainBundle] loadNibNamed:@"BUNFilter" owner:bunFilter topLevelObjects:&tmpArr];
             editorArray = tmpArr;
             [bunFilter configure];
-            
-            
         }
         [bunFilter.window display];
         [bunFilter.window makeKeyAndOrderFront:nil];
@@ -880,11 +896,27 @@
         }
         else
         {
-            NSString * dayFolder = [NSString stringWithFormat:@"%@/%.2ld-%.2ld-%.4ld", archivesFolder, day, month, year];
-            [self testFolder:dayFolder];
+            if([[NSUserDefaults standardUserDefaults] boolForKey:@"archiveOldButton"]== NO &&
+                    ([[element pathExtension] isEqualToString:@"jpg"] ||
+                      [[element pathExtension] isEqualToString:@"JPG"] ||
+                      [[element pathExtension] isEqualToString:@"png"] ||
+                      [[element pathExtension] isEqualToString:@"PNG"] ||
+                      [[element pathExtension] isEqualToString:@"gif"] ||
+                      [[element pathExtension] isEqualToString:@"GIF"] ||
+                      [[element pathExtension] isEqualToString:@"mov"] ||
+                      [[element pathExtension] isEqualToString:@"MOV"]))
+            {
+                [array addObject:element];
+            }
+            else
+            {
+                NSString * dayFolder = [NSString stringWithFormat:@"%@/%.2ld-%.2ld-%.4ld", archivesFolder, day, month, year];
+                [self testFolder:dayFolder];
+                
+                NSString * destinationPath = [dayFolder stringByAppendingPathComponent:[element lastPathComponent]];
+                [[NSFileManager defaultManager] moveItemAtPath:element toPath:destinationPath error:&err];
+            }
             
-            NSString * destinationPath = [dayFolder stringByAppendingPathComponent:[element lastPathComponent]];
-            [[NSFileManager defaultManager] moveItemAtPath:element toPath:destinationPath error:&err];
         }
     }
     return array;
@@ -954,6 +986,7 @@
     [self.window display];
     [self.window makeKeyAndOrderFront:nil];
 }
+
 
 -(IBAction)toggleFullScreen:(id)sender
 {
@@ -1227,8 +1260,19 @@
                                               attributes:nil];
     }
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"shouldNotifyButton"])
+    {
+        NSError*error;
+        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.google.com"]
+                                                       encoding:NSMacOSRomanStringEncoding error:&error];
+        BOOL connected =  (URLString != nil) ? YES : NO;
+        
+        if (connected)
+        {
+            [self sendEmailWithFile:destinationPath];
+        }
+    }
     
-    [self sendEmailWithFile:destinationPath];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPrintButton"])
     {
@@ -1250,12 +1294,11 @@
             
         }
         [margs addObject:destinationPath];
-        //NSLog(@"PRINT COMMAND ARGS = \n%@", margs);
+        NSLog(@"PRINT COMMAND ARGS = \n%@", margs);
         [task setArguments:[NSArray arrayWithArray:margs]];
         task.terminationHandler = ^(NSTask *aTask)
         {
             NSLog(@"printed");
-            
         };
         [task launch];
     }
@@ -1468,7 +1511,6 @@
     NSError * err;
     if (YES)
     {
-        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setURL:[NSURL URLWithString:serviceURL]];
         NSString *boundary = @"0xKhTmLbOuNdArY";

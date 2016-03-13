@@ -52,7 +52,6 @@
         [self.captureSession startRunning];
         self.connection = [self.output connectionWithMediaType: AVMediaTypeVideo];
         
-        
         return self;
     }
     return nil;

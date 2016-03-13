@@ -133,5 +133,7 @@
 -(IBAction)photo:(NSButton*)btn;
 -(IBAction)makeGif:(NSButton*)btn;
 
+-(IBAction)razPrefs:(NSButton*)btn;
+
 @end
 

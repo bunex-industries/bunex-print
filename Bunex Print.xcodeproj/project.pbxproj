@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DB5F5B91BB93D4F0050523E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2DB5F5B81BB93D4F0050523E /* Credits.rtf */; };
 		46261F9E1AA3B20C00B7EFF5 /* BUNKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 46261F9D1AA3B20C00B7EFF5 /* BUNKeyboard.m */; };
 		4645F24D1A9DF170007F944F /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645F2451A9DF170007F944F /* UKFileWatcher.m */; };
 		4645F24E1A9DF170007F944F /* UKFNSubscribeFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645F2471A9DF170007F944F /* UKFNSubscribeFileWatcher.m */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2DB5F5B81BB93D4F0050523E /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		46261F9C1AA3B20C00B7EFF5 /* BUNKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUNKeyboard.h; sourceTree = "<group>"; };
 		46261F9D1AA3B20C00B7EFF5 /* BUNKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUNKeyboard.m; sourceTree = "<group>"; };
 		4645F2441A9DF170007F944F /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				46C764D61AA325D700886617 /* BUNFilter ressources */,
 				46D6F9FE1A9FA6E600574B48 /* defaults.plist */,
+				2DB5F5B81BB93D4F0050523E /* Credits.rtf */,
 				46A51E091AA1F638009ACA1F /* makeGif.png */,
 				46A51E0A1AA1F638009ACA1F /* makeGif_down.png */,
 				4645F25B1A9E1952007F944F /* pin.tif */,
@@ -308,6 +311,7 @@
 				46C764C81AA325CB00886617 /* test.jpg in Resources */,
 				468F9C941A9DE22200BFEB2D /* print_down.png in Resources */,
 				468F9C9C1A9DE22200BFEB2D /* right_down.png in Resources */,
+				2DB5F5B91BB93D4F0050523E /* Credits.rtf in Resources */,
 				468F9C721A9DCD4F00BFEB2D /* MainMenu.xib in Resources */,
 				4645F25E1A9E1952007F944F /* glossy.png in Resources */,
 			);
