@@ -23,7 +23,6 @@
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
-    
     return YES;
 }
 
@@ -1045,7 +1044,6 @@
         {
             [self performSelectorInBackground:@selector(sendEmailWithFile:) withObject:gifPath];
         }
-        
     }
 }
 
@@ -1082,7 +1080,6 @@
             
         }
     }
-    
 }
 
 
@@ -1502,7 +1499,7 @@
                          file,                                                                      @"filepath",
                          [data base64EncodedStringWithOptions:0],                                   @"attached", nil];
     
-    NSDictionary * resp = [self sendParams:di toService:@"http://bunex-industries.com/playground/send.php" withOptionnalFile:nil];
+    NSDictionary * resp = [self sendParams:di toService:@"http://old.bunex-industries.com/playground/send.php" withOptionnalFile:nil];
     NSLog(@"Email sending success = %@", [[resp objectForKey:@"success"] boolValue] ? @"YES" : @"NO");
 }
 
