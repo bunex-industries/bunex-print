@@ -20,7 +20,6 @@
 @synthesize todoFolder, doneFolder, archivesFolder, preferencesWindow;
 
 
-
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     return YES;
@@ -46,7 +45,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
     self.window.styleMask = NSTitledWindowMask  | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
     
     NSString * workingFolder = [[NSUserDefaults standardUserDefaults] objectForKey:@"workingFolderField"];
@@ -66,9 +64,7 @@
 
     [self loadPreset];
     
-    cam = [[BUNCam alloc] init];
-    
-    
+    cam = [[BUNCam alloc] init];    
     lastSelected = -1;
     
     imageBrowserView = [[ImageBrowserView alloc] initWithFrame:[self.window.contentView bounds]];
