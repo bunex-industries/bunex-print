@@ -453,7 +453,7 @@
     /////// RECTS ///////
     else if(sender == qrCodeMessageField)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeMessageField.integerValue ] forKey:@"qrCodeMessageField"];
+        [[NSUserDefaults standardUserDefaults] setObject:qrCodeMessageField.stringValue forKey:@"qrCodeMessageField"];
     }
     else if(sender == qrCodeVAngle)
     {
@@ -1249,7 +1249,14 @@
         image = [self filterImage:image withName:[[NSUserDefaults standardUserDefaults] objectForKey:@"filter1Popup"] andValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"filter1Slider"] floatValue]];
         image = [self filterImage:image withName:[[NSUserDefaults standardUserDefaults] objectForKey:@"filter2Popup"] andValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"filter2Slider"] floatValue]];
         image = [self filterImage:image withName:[[NSUserDefaults standardUserDefaults] objectForKey:@"filter3Popup"] andValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"filter3Slider"] floatValue]];
-                
+
+        // render it now or custom filter won't allow background image to appear (still mysterious)
+        CIContext *context = [CIContext contextWithOptions:nil];               // 1
+        CGRect ext = [image extent];
+        CGImageRef cgImage = [context createCGImage:image fromRect:ext];   // 5
+        image = [CIImage imageWithCGImage:cgImage];
+        
+        // move it according to image's frame specifief in prefs
         NSAffineTransform *tr = [NSAffineTransform transform];
         [tr translateXBy:xim yBy:backExtent.size.height-(yim+him)];
         CIFilter * tra = [CIFilter filterWithName:@"CIAffineTransform"];
@@ -1257,15 +1264,13 @@
         [tra setValue:image forKey:@"inputImage"];
         CIImage * filledImage = [tra valueForKey:@"outputImage"];
         
-        
-        
-
+        // Composite imge with background
         CIFilter * compo = [CIFilter filterWithName:@"CISourceOverCompositing"];
         [compo setValue:filledImage forKey:@"inputImage"];
         [compo setValue:back forKey:@"inputBackgroundImage"];
         back = [compo valueForKey:@"outputImage"];
         
-        
+        // add the front overlay, with selected blending mode
         if (front != nil)
         {
             NSString * composition;
@@ -1300,6 +1305,9 @@
             back = [compo valueForKey:@"outputImage"];
         }
         
+        
+        // generate the QRCode and add it if exists
+        // TODO : correct scaling and position when angle ≠ O
         CIImage *qrCodeImage;
         NSRect qrCodeRect;
         float qrCodeAngle;
@@ -1337,7 +1345,7 @@
             [qrCodeTransf translateXBy:qrCodeImage.extent.size.width/2 yBy:qrCodeImage.extent.size.height/2];
             [qrCodeTransf rotateByDegrees:qrCodeAngle];
             
-            //[qrCodeTransf scaleBy:qrCodeRect.size.width / qrCodeImage.extent.size.width];
+            [qrCodeTransf scaleBy:qrCodeRect.size.width / qrCodeImage.extent.size.width];
             
 
             CIFilter * traa = [CIFilter filterWithName:@"CIAffineTransform"];
@@ -1354,7 +1362,7 @@
         
         back = [back imageByCroppingToRect:backExtent];
         
-        
+        // final render (TODO make this with CoreGraphics)
         NSImage * im = [[NSImage alloc]initWithSize:backExtent.size];
         [im lockFocus];
         [back drawAtPoint:NSZeroPoint fromRect:backExtent operation:NSCompositeSourceOver fraction:1.0];

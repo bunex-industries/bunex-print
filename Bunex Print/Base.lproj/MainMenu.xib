@@ -907,12 +907,12 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Général" identifier="1" id="rOT-bG-S6E">
-                                <view key="view" ambiguous="YES" id="Iih-Wn-r4a">
-                                    <rect key="frame" x="10" y="33" width="461" height="579"/>
+                                <view key="view" id="Iih-Wn-r4a">
+                                    <rect key="frame" x="10" y="33" width="316" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F05-By-Gw3">
-                                            <rect key="frame" x="15" y="513" width="209" height="18"/>
+                                            <rect key="frame" x="15" y="-66" width="209" height="18"/>
                                             <buttonCell key="cell" type="check" title="Démarrer en mode plein écran" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rBx-1D-thb">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -922,7 +922,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX3-gN-Kyk">
-                                            <rect key="frame" x="17" y="546" width="349" height="16"/>
+                                            <rect key="frame" x="17" y="-33" width="349" height="16"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="5d3-tB-DTy">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -933,7 +933,7 @@
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Sd-yff">
-                                            <rect key="frame" x="15" y="565" width="158" height="11"/>
+                                            <rect key="frame" x="15" y="-14" width="158" height="11"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Emplacement du dossier de travail" id="MLM-pI-1ML">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -941,7 +941,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bB-46-Ro0">
-                                            <rect key="frame" x="373" y="546" width="72" height="16"/>
+                                            <rect key="frame" x="373" y="-33" width="72" height="16"/>
                                             <buttonCell key="cell" type="push" title="Choisir" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zf4-DU-JpF">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="miniSystem"/>
@@ -951,7 +951,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cW3-K5-edm">
-                                            <rect key="frame" x="15" y="473" width="270" height="18"/>
+                                            <rect key="frame" x="15" y="-106" width="270" height="18"/>
                                             <buttonCell key="cell" type="check" title="Archiver fichiers antérieurs à aujourd'hui" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="CuU-VR-Xb8">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -961,7 +961,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sqy-wj-o4Z">
-                                            <rect key="frame" x="15" y="384" width="165" height="18"/>
+                                            <rect key="frame" x="15" y="-195" width="165" height="18"/>
                                             <buttonCell key="cell" type="check" title="Ignorer les extensions :" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="e3k-0F-Zxv">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -971,7 +971,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIe-87-yFe">
-                                            <rect key="frame" x="186" y="385" width="258" height="16"/>
+                                            <rect key="frame" x="186" y="-194" width="258" height="16"/>
                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Uob-AF-e5q">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -982,7 +982,7 @@
                                             </connections>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K71-60-NqX">
-                                            <rect key="frame" x="15" y="453" width="263" height="18"/>
+                                            <rect key="frame" x="15" y="-126" width="263" height="18"/>
                                             <buttonCell key="cell" type="check" title="Archiver les images une fois imprimées" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2gX-Ja-gRH">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -992,7 +992,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flq-ho-qY6">
-                                            <rect key="frame" x="15" y="433" width="266" height="18"/>
+                                            <rect key="frame" x="15" y="-146" width="266" height="18"/>
                                             <buttonCell key="cell" type="check" title="Archiver les images une fois le GIF créé" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rYG-6E-s2D">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1002,7 +1002,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rNB-Ap-fBC">
-                                            <rect key="frame" x="15" y="334" width="136" height="18"/>
+                                            <rect key="frame" x="15" y="-245" width="136" height="18"/>
                                             <buttonCell key="cell" type="check" title="Utiliser la webcam" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Web-aE-fBI">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1012,7 +1012,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gs0-MN-hnH">
-                                            <rect key="frame" x="11" y="154" width="170" height="32"/>
+                                            <rect key="frame" x="11" y="-425" width="170" height="32"/>
                                             <buttonCell key="cell" type="push" title="RAZ des préférences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fdu-cE-qpc">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1025,7 +1025,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Mise en page" identifier="2" id="qc9-Uw-hf3">
-                                <view key="view" id="gDs-rZ-8Ud">
+                                <view key="view" ambiguous="YES" id="gDs-rZ-8Ud">
                                     <rect key="frame" x="10" y="33" width="461" height="579"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -1816,7 +1816,7 @@ Message vide = Pas de QRCode</string>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SiY-3Q-cI8">
                                             <rect key="frame" x="70" y="114" width="375" height="16"/>
-                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="itK-hO-CHL">
+                                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="itK-hO-CHL">
                                                 <font key="font" metaFont="miniSystem"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
