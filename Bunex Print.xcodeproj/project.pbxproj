@@ -261,7 +261,7 @@
 		468F9C5C1A9DCD4F00BFEB2D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = minibun;
 				TargetAttributes = {
 					468F9C631A9DCD4F00BFEB2D = {
@@ -387,6 +387,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -450,6 +451,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Bunex Print/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bunex-industries.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Bunex Print";
 			};
 			name = Debug;
@@ -461,6 +463,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Bunex Print/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bunex-industries.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Bunex Print";
 			};
 			name = Release;

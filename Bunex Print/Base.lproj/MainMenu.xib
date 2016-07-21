@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -762,19 +762,19 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="115" y="97" width="1230" height="676"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1230" height="676"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView autoresizesSubviews="NO" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN2-jX-ddZ">
+                    <scrollView autoresizesSubviews="NO" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN2-jX-ddZ">
                         <rect key="frame" x="90" y="70" width="1050" height="586"/>
-                        <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="lTa-5p-jKs">
-                            <rect key="frame" x="1" y="1" width="166" height="79"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="lTa-5p-jKs">
+                            <rect key="frame" x="0.0" y="0.0" width="1050" height="586"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ev-BS-NF2">
-                                    <rect key="frame" x="0.0" y="0.0" width="534" height="156"/>
+                                    <rect key="frame" x="0.0" y="507" width="534" height="156"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -788,8 +788,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L42-gI-9Sb">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="L42-gI-9Sb">
                         <rect key="frame" x="974" y="0.0" width="256" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="62" id="ONt-q4-LPO"/>
+                            <constraint firstAttribute="width" constant="256" id="X67-zL-7mm"/>
+                        </constraints>
                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="print" imagePosition="overlaps" alignment="center" alternateImage="print_down" imageScaling="proportionallyDown" inset="2" id="ZEI-Vj-IaZ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -798,8 +802,12 @@
                             <action selector="saveAndPrint:" target="Voe-Tx-rLC" id="GsR-xk-R2Q"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9k-Pq-GxO">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e9k-Pq-GxO">
                         <rect key="frame" x="1148" y="288" width="62" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="62" id="UGj-rc-iUb"/>
+                            <constraint firstAttribute="height" constant="100" id="W4K-N3-29m"/>
+                        </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="right" imagePosition="only" alignment="center" alternateImage="right_down" imageScaling="proportionallyDown" inset="2" id="1W9-fk-cUG">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -808,8 +816,12 @@
                             <action selector="next:" target="Voe-Tx-rLC" id="2Pv-Xb-oFI"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBL-e1-q4k">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QBL-e1-q4k">
                         <rect key="frame" x="20" y="288" width="62" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="5VE-51-tXX"/>
+                            <constraint firstAttribute="width" constant="62" id="f8X-CS-kEY"/>
+                        </constraints>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="left" imagePosition="only" alignment="center" alternateImage="left_down" imageScaling="proportionallyDown" inset="2" id="EdX-vA-Y3Z">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -818,15 +830,12 @@
                             <action selector="prev:" target="Voe-Tx-rLC" id="QKu-7t-ZwZ"/>
                         </connections>
                     </button>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5h-5K-1Wh">
-                        <rect key="frame" x="550" y="21" width="130" height="21"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.20000000000000001" tickMarkPosition="above" sliderType="linear" id="c6A-oR-sBu"/>
-                        <connections>
-                            <action selector="zoom:" target="Voe-Tx-rLC" id="5z8-sl-6Cd"/>
-                        </connections>
-                    </slider>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebt-lC-KBT">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="ebt-lC-KBT">
                         <rect key="frame" x="20" y="0.0" width="178" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="62" id="dvT-Ki-Pcc"/>
+                            <constraint firstAttribute="width" constant="178" id="t19-c1-rq3"/>
+                        </constraints>
                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="photo" imagePosition="overlaps" alignment="center" alternateImage="photo_down" imageScaling="proportionallyDown" inset="2" id="mW1-2l-qkh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -835,8 +844,12 @@
                             <action selector="photo:" target="Voe-Tx-rLC" id="1iT-ro-YTx"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XN9-wA-TPI">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="XN9-wA-TPI">
                         <rect key="frame" x="710" y="1" width="256" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="256" id="JbZ-TE-SLY"/>
+                            <constraint firstAttribute="height" constant="62" id="jTs-lc-s9l"/>
+                        </constraints>
                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="makeGif" imagePosition="overlaps" alignment="center" alternateImage="makeGif_down" imageScaling="proportionallyDown" inset="2" id="Ejb-4e-ndE">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -845,7 +858,36 @@
                             <action selector="makeGif:" target="Voe-Tx-rLC" id="Z54-Q3-1Ed"/>
                         </connections>
                     </button>
+                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c5h-5K-1Wh">
+                        <rect key="frame" x="204" y="18" width="500" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="mkp-Dl-s0i"/>
+                        </constraints>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.20000000000000001" tickMarkPosition="above" sliderType="linear" id="c6A-oR-sBu"/>
+                        <connections>
+                            <action selector="zoom:" target="Voe-Tx-rLC" id="5z8-sl-6Cd"/>
+                        </connections>
+                    </slider>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="e9k-Pq-GxO" secondAttribute="trailing" constant="20" id="2a6-51-MtY"/>
+                    <constraint firstItem="e9k-Pq-GxO" firstAttribute="leading" secondItem="JN2-jX-ddZ" secondAttribute="trailing" constant="8" id="AdB-96-tkV"/>
+                    <constraint firstItem="e9k-Pq-GxO" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" id="Ama-D4-fLY"/>
+                    <constraint firstAttribute="bottom" secondItem="XN9-wA-TPI" secondAttribute="bottom" constant="1" id="Egc-ba-GFl"/>
+                    <constraint firstItem="c5h-5K-1Wh" firstAttribute="leading" secondItem="ebt-lC-KBT" secondAttribute="trailing" constant="8" id="Fkw-Mr-CwA"/>
+                    <constraint firstItem="QBL-e1-q4k" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" id="Hfq-TM-1aq"/>
+                    <constraint firstItem="XN9-wA-TPI" firstAttribute="top" secondItem="JN2-jX-ddZ" secondAttribute="bottom" constant="7" id="HlU-iV-JuH"/>
+                    <constraint firstItem="ebt-lC-KBT" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="I2J-7f-uYK"/>
+                    <constraint firstAttribute="bottom" secondItem="c5h-5K-1Wh" secondAttribute="bottom" constant="20" id="Im1-ta-adV"/>
+                    <constraint firstAttribute="bottom" secondItem="ebt-lC-KBT" secondAttribute="bottom" id="Iu4-df-SeY"/>
+                    <constraint firstAttribute="trailing" secondItem="L42-gI-9Sb" secondAttribute="trailing" id="Oa4-9N-LYh"/>
+                    <constraint firstItem="L42-gI-9Sb" firstAttribute="leading" secondItem="XN9-wA-TPI" secondAttribute="trailing" constant="8" id="ZpJ-0C-Ayu"/>
+                    <constraint firstAttribute="bottom" secondItem="L42-gI-9Sb" secondAttribute="bottom" id="jiI-1g-7cm"/>
+                    <constraint firstItem="JN2-jX-ddZ" firstAttribute="leading" secondItem="QBL-e1-q4k" secondAttribute="trailing" constant="8" id="lgA-TT-2rP"/>
+                    <constraint firstItem="JN2-jX-ddZ" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="ro7-df-HdS"/>
+                    <constraint firstItem="QBL-e1-q4k" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="w4T-TC-nnf"/>
+                    <constraint firstItem="XN9-wA-TPI" firstAttribute="leading" secondItem="c5h-5K-1Wh" secondAttribute="trailing" constant="8" id="y1L-Es-zpn"/>
+                </constraints>
             </view>
             <point key="canvasLocation" x="880" y="575"/>
         </window>
@@ -853,7 +895,9 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="433" y="180" width="507" height="641"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <value key="minSize" type="size" width="507" height="641"/>
+            <value key="maxSize" type="size" width="507" height="641"/>
             <view key="contentView" id="sen-dL-zKO">
                 <rect key="frame" x="0.0" y="0.0" width="507" height="641"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -863,7 +907,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Général" identifier="1" id="rOT-bG-S6E">
-                                <view key="view" id="Iih-Wn-r4a">
+                                <view key="view" ambiguous="YES" id="Iih-Wn-r4a">
                                     <rect key="frame" x="10" y="33" width="461" height="579"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -981,7 +1025,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Mise en page" identifier="2" id="qc9-Uw-hf3">
-                                <view key="view" ambiguous="YES" id="gDs-rZ-8Ud">
+                                <view key="view" id="gDs-rZ-8Ud">
                                     <rect key="frame" x="10" y="33" width="461" height="579"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
