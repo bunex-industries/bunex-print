@@ -219,6 +219,20 @@
     filter3Slider.floatValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter3Slider"] floatValue];
     
     
+    qrCodeMessageField.stringValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"qrCodeMessageField"];
+    qrCodeVX.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeVX"] integerValue];
+    qrCodeVY.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeVY"] integerValue];
+    qrCodeVW.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeVW"] integerValue];
+    qrCodeVH.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeVH"] integerValue];
+    qrCodeVAngle.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeVAngle"] integerValue];
+    
+    qrCodeHX.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeHX"] integerValue];
+    qrCodeHY.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeHY"] integerValue];
+    qrCodeHW.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeHW"] integerValue];
+    qrCodeHH.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeHH"] integerValue];
+    qrCodeHAngle.integerValue = [[[NSUserDefaults standardUserDefaults] objectForKey:@"qrCodeHAngle"] integerValue];
+    
+    
     shouldPrintButton.state = [[[NSUserDefaults standardUserDefaults] objectForKey:@"shouldPrintButton"] boolValue];
     [printersPopup selectItemWithTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"printersPopup"]];
     [printSettingsPopup selectItemWithTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"printSettingsPopup"]];
@@ -433,6 +447,56 @@
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:horizontalW.integerValue] forKey:@"horizontalW"];
     }
+    
+    
+#pragma mark qrCode
+    /////// RECTS ///////
+    else if(sender == qrCodeMessageField)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeMessageField.integerValue ] forKey:@"qrCodeMessageField"];
+    }
+    else if(sender == qrCodeVAngle)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeVAngle.integerValue ] forKey:@"qrCodeVAngle"];
+    }
+    else if(sender == qrCodeVX)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeVX.integerValue ] forKey:@"qrCodeVX"];
+    }
+    else if(sender == qrCodeVY)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeVY.integerValue ] forKey:@"qrCodeVY"];
+    }
+    else if(sender == qrCodeVW)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeVW.integerValue] forKey:@"qrCodeVW"];
+    }
+    else if(sender == qrCodeVH)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeVH.integerValue] forKey:@"qrCodeVH"];
+    }
+    else if(sender == qrCodeHAngle)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeHAngle.integerValue ] forKey:@"qrCodeHAngle"];
+    }
+    else if(sender == qrCodeHX)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeHX.integerValue ] forKey:@"qrCodeHX"];
+    }
+    else if(sender == qrCodeHY)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeHY.integerValue ] forKey:@"qrCodeHY"];
+    }
+    else if(sender == qrCodeHW)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeHW.integerValue] forKey:@"qrCodeHW"];
+    }
+    else if(sender == qrCodeHH)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:qrCodeHH.integerValue] forKey:@"qrCodeHH"];
+    }
+    
+    
     
 #pragma mark print
     /////// PRINT ///////////
@@ -1236,12 +1300,65 @@
             back = [compo valueForKey:@"outputImage"];
         }
         
+        CIImage *qrCodeImage;
+        NSRect qrCodeRect;
+        float qrCodeAngle;
+        if([[[NSUserDefaults standardUserDefaults] stringForKey:@"qrCodeMessageField"] length] > 0)
+        {
+            NSString * qrCodeMessage = [[NSUserDefaults standardUserDefaults] stringForKey:@"qrCodeMessageField"];
+            qrCodeMessage = [qrCodeMessage stringByReplacingOccurrencesOfString:@"###" withString:[[destinationPath lastPathComponent] stringByDeletingPathExtension]];
+            NSLog(@"generate qrCode with string = %@", qrCodeMessage);
+            
+            if (vertical)
+            {
+                qrCodeRect = NSMakeRect([[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeVX"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeVY"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeVW"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeVH"]);
+                qrCodeAngle = [[NSUserDefaults standardUserDefaults] floatForKey:@"qrCodeVAngle"];
+            }
+            else
+            {
+                qrCodeRect = NSMakeRect([[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeHX"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeHY"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeHW"],
+                                        [[NSUserDefaults standardUserDefaults] integerForKey:@"qrCodeHH"]);
+                qrCodeAngle = [[NSUserDefaults standardUserDefaults] floatForKey:@"qrCodeHAngle"];
+            }
+            
+            CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+            [filter setDefaults];
+            
+            NSData *data = [qrCodeMessage dataUsingEncoding:NSUTF8StringEncoding];
+            [filter setValue:data forKey:@"inputMessage"];
+            qrCodeImage = [filter valueForKey:@"outputImage"];
+            
+            NSAffineTransform * qrCodeTransf = [NSAffineTransform transform];
+            [qrCodeTransf translateXBy:qrCodeImage.extent.size.width/2 yBy:qrCodeImage.extent.size.height/2];
+            [qrCodeTransf rotateByDegrees:qrCodeAngle];
+            
+            //[qrCodeTransf scaleBy:qrCodeRect.size.width / qrCodeImage.extent.size.width];
+            
+
+            CIFilter * traa = [CIFilter filterWithName:@"CIAffineTransform"];
+            [traa setValue:qrCodeTransf forKey:@"inputTransform"];
+            [traa setValue:qrCodeImage forKey:@"inputImage"];
+            CIImage * scaledQrCodeImage = [traa valueForKey:@"outputImage"];
+            
+            
+            CIFilter * add = [CIFilter filterWithName:@"CISourceOverCompositing"];
+            [add setValue:back forKey:@"inputBackgroundImage"];
+            [add setValue:scaledQrCodeImage forKey:@"inputImage"];
+            back = [add valueForKey:@"outputImage"];
+        }
+        
         back = [back imageByCroppingToRect:backExtent];
         
         
         NSImage * im = [[NSImage alloc]initWithSize:backExtent.size];
         [im lockFocus];
         [back drawAtPoint:NSZeroPoint fromRect:backExtent operation:NSCompositeSourceOver fraction:1.0];
+
         [im unlockFocus];
         
         NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithData:[im TIFFRepresentation]];

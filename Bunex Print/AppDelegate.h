@@ -78,6 +78,19 @@
     IBOutlet NSTextField *  horizontalH;
     IBOutlet NSTextField *  horizontalW;
     
+    IBOutlet NSTextField *  qrCodeMessageField;
+    IBOutlet NSTextField *  qrCodeHAngle;
+    IBOutlet NSTextField *  qrCodeHX;
+    IBOutlet NSTextField *  qrCodeHY;
+    IBOutlet NSTextField *  qrCodeHH;
+    IBOutlet NSTextField *  qrCodeHW;
+    IBOutlet NSTextField *  qrCodeVAngle;
+    IBOutlet NSTextField *  qrCodeVX;
+    IBOutlet NSTextField *  qrCodeVY;
+    IBOutlet NSTextField *  qrCodeVH;
+    IBOutlet NSTextField *  qrCodeVW;
+    
+    
     IBOutlet NSButton *     shouldPrintButton;
     IBOutlet NSPopUpButton * printersPopup;
     IBOutlet NSPopUpButton * printSettingsPopup;
